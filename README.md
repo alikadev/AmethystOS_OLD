@@ -1,14 +1,11 @@
 
-<img width="400" height="400" float="right" src="https://github.com/alikadev/AmethystOS/blob/master/img/icon_txt.png">
 
-=======
-| I am text to the left  | ![AmethystOSLogo](/img/logo_txt.png) |
->>>>>>> 1c2ddd8ceba1821dda7b7525234975cad4b78c78
-# AmethystOS
+# AmethystOS 
 
 ## What is it?
 
-AmethystOS is an open-source operating system that has a "hand-made" kernel. It is made to run on Raspberry (Pi 3 and 4) ArmV8 (AArch64). It is possible that the OS works on other systems, but I would not have tested them...
+AmethystOS is an open-source operating system that has a "hand-made" kernel. It is made to run on Raspberry (Pi 3 and 4) ArmV8 (AArch64). It is possible that the OS works on other systems, but I would not have tested them... <img width="400" height="400" float="right" src="https://github.com/alikadev/AmethystOS/blob/master/img/icon_txt.png">
+
 This is mostly a fun little project rather than the next masterpiece! AmethystOS may be the equivalent of MS-DOS one day... But it's not sure!
 
 ----
