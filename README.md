@@ -1,5 +1,4 @@
-<img style="float: right;" width="400" height="400" src="https://github.com/alikadev/AmethystOS/blob/master/img/icon_txt.png">
-
+| I am text to the left  | ![AmethystOSLogo](/img/logo_txt.png) |
 # AmethystOS
 
 ## What is it?
