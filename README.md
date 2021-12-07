@@ -1,4 +1,4 @@
-<img style="float: right;" width="30em" height="30em" src="https://github.com/alikadev/AmethystOS/blob/master/img/icon_txt.png">
+<img style="float: right;" width="400" height="400" src="https://github.com/alikadev/AmethystOS/blob/master/img/icon_txt.png">
 
 # AmethystOS
 
