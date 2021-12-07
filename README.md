@@ -1,4 +1,4 @@
-<img style="float: right;width:10em;height:10em;" src="img/logo_txt.png">
+<img style="float: right;width:10em;height:10em;" src="./img/logo_txt.png">
 
 # AmethystOS
 ## What is it?
