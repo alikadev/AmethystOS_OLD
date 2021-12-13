@@ -1,5 +1,5 @@
 # Author  -> alikadev
-# Version -> 1.0
+# Version -> 1.1
 # Date    -> 09.01.07
 # Desc    -> Build & run (qemu) AmthystOS
 
@@ -88,7 +88,7 @@ help:
 
 installBuildTools:
 	sudo apt-get update
-	sudo apt-get install tree make gcc-arm-linux-gnueabi binutils-arm-linux-gnueabi qemu-system
+	sudo apt-get install tree make gcc-arm-linux-gnueabi binutils-arm-linux-gnueabi qemu-system gcc-aarch64-linux-gnu
 
 
 
