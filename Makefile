@@ -13,14 +13,14 @@ BOOTMNT     ?= /media/alikadev/boot
 # build
 ARMGNU      = aarch64-linux-gnu
 FLAGS       = -DRPI_VERSION=$(RPI_VERSION) -Wall -nostdlib -nostartfiles \
-		-ffreestanding -Iinclude -mgeneral-regs-only
+		-ffreestanding -Iinc -mgeneral-regs-only
 
 
 # dirs
 BUILD_DIR   = build
 BIN_DIR     = bin
 DIST_DIR    = dist
-INC_DIR     = include
+INC_DIR     = inc
 SRC_DIR     = src
 BOOT_DIR    = bootloader
 KERNEL_DIR  = kernel
