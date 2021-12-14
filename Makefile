@@ -1,5 +1,5 @@
 # Author  -> alikadev
-# Version -> 1.1
+# Version -> 1.2
 # Date    -> 09.01.07
 # Desc    -> Build & run (qemu) AmthystOS
 
@@ -8,7 +8,7 @@
 # var
 RPI_VERSION ?= 3
 
-BOOTMNT     ?= /media/alikadev/boot
+BOOTMNT     ?= get-BOOTMNT
 
 # build
 ARMGNU      = aarch64-linux-gnu
@@ -29,7 +29,7 @@ OS_DIR      = os
 
 
 # files
-LINKER             = $(SRC_DIR)/link.lds
+LINKER             = $(SRC_DIR)/linker.ld
 
 BOOT_ASM_FILES     = $(addprefix $(BOOT_DIR)/,$(notdir $(wildcard $(SRC_DIR)/$(BOOT_DIR)/*.c)))
 BOOT_ASM_FILES    += $(addprefix $(BOOT_DIR)/,$(notdir $(wildcard $(SRC_DIR)/$(BOOT_DIR)/*.S)))
@@ -58,7 +58,7 @@ OUT_IMAGE   = AmethystOS.img
 
 
 
-.PHONY: all help clean always buildboot buildkernel buildos linkimg buildall installBuildTools run
+.PHONY: all help clean always buildboot buildkernel buildos linkimg install build buildall installBuildTools run
 
 
 
@@ -75,11 +75,13 @@ help:
 	@echo "	clean       > clean build & bin dirs"
 	@echo "	always      > make dirs for build"
 
-	@echo "	buildall    > build all scr and link it"
+	@echo "	buildall    > build and install install image"
+	@echo "	build       > build all src and make image"
 	@echo "	linkimg     > link obj in $(BUILD_DIR) for make $(BIN_DIR)/$(OUT_IMAGE)"
 	@echo "	buildos     > build src from $(SRC_DIR)/$(OS_DIR) for make $(BUILD_DIR)/$(OS_DIR)"
 	@echo "	buildkernel > build src from $(SRC_DIR)/$(KERNEL_DIR) for make $(BUILD_DIR)/$(KERNEL_DIR)"
 	@echo "	buildboot   > build src from $(SRC_DIR)/$(BOOT_DIR) for make $(BUILD_DIR)/$(BOOT_DIR)"
+	@echo "	install    > build BOOTMNT with image"
 	@echo "	# installBuildTools > install used buildtools"
 	@echo ""
 	@echo "	run         > run in qemu (qemu-system-aarch64)"
@@ -179,8 +181,17 @@ linkimgWrite:
 	@echo "to:   $(BIN_DIR)/$(OUT_IMAGE)"
 
 linkimgWrk:
-	@$(ARMGNU)-ld -nostdlib -T $(LINKER) -o $(BUILD_DIR)/$(OUT_IMAGE).elf $(OBJS)
+	@$(ARMGNU)-ld -T $(LINKER) -o $(BUILD_DIR)/$(OUT_IMAGE).elf $(OBJS)
 	@$(ARMGNU)-objcopy $(BUILD_DIR)/$(OUT_IMAGE).elf -O binary $(BIN_DIR)/$(OUT_IMAGE)
+
+linkimgEnd:
+	@echo "_____________________"
+	@echo
+
+
+
+# install
+install:
 ifeq ($(RPI_VERSION), 4)
 	@cp $(BIN_DIR)/$(OUT_IMAGE) $(BOOTMNT)/kernel8-rpi4.img
 else
@@ -189,14 +200,11 @@ endif
 	@cp config.txt $(BOOTMNT)/
 	@sync
 
-linkimgEnd:
-	@echo "_____________________"
-	@echo
-
 
 
 # clean all and make OS
-buildall: minimal clean always buildboot buildkernel buildos linkimg
+build: minimal clean always buildboot buildkernel buildos linkimg
+buildall: build install
 
 
 

@@ -1,8 +1,13 @@
 #pragma once
 
-typedef unsigned char u8;
-typedef unsigned short int u16;
-typedef unsigned long int u32;
-typedef unsigned long long int u64;
+#define u0  void
+#define i8  signed char
+#define u8  unsigned char
+#define i16 short
+#define u16 unsigned short
+#define i32 long int
+#define u32 unsigned long int
+#define i64 long long int
+#define u64 unsigned long long int
 
-#define volatile u32 reg32;
+#define r32 volatile u32

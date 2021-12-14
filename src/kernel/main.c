@@ -1,12 +1,15 @@
 #include "uart.h"
+#include "common.h"
 
-void kernel_start(){
-    write_string("\n\n --- Welcome in AmethystOS! ---\n");
+u0 kernel_entry(){
+    uart_init();
+
+    uart_puts((u8*)"\n\n --- Welcome in AmethystOS! ---\n");
     while(1){
-        u8 c = read_char();
-        if(c=='\r'){
-            write_char('\n');
+        u8 c = uart_getc();
+        if(c == '\r'){
+            uart_putc('\n');
         }
-        write_char(c);
+        uart_putc(c);
     }
 }

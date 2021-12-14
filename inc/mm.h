@@ -12,5 +12,5 @@
 
 
 #ifndef __ASSEMBLER__
-void memzero(u64 src, unsigned int n);
+u0 memzero(u64 src, u32 n);
 #endif
