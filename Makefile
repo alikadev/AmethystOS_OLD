@@ -191,14 +191,26 @@ linkimgEnd:
 
 
 # install
-install:
+install: installWrite installWrk installEnd
+installWrite:
+	@echo
+	@echo " --- install ---"
+	@echo "installing $(BIN_DIR)/$(OUT_IMAGE)"
+
+installWrk:
 ifeq ($(RPI_VERSION), 4)
 	@cp $(BIN_DIR)/$(OUT_IMAGE) $(BOOTMNT)/kernel8-rpi4.img
+	@echo "in to      $(BOOTMNT)"/kernel8-rpi4.img
 else
 	@cp $(BIN_DIR)/$(OUT_IMAGE) $(BOOTMNT)/kernel8.img
+	@echo "in to      $(BOOTMNT)"/kernel8.img
 endif
 	@cp config.txt $(BOOTMNT)/
 	@sync
+	
+installEnd:
+	@echo "_____________________"
+	@echo
 
 
 
