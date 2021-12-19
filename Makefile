@@ -169,6 +169,27 @@ $(OS_DIR)/%.c:
 	@$(ARMGNU)-gcc $(FLAGS) -MMD -c $(SRC_DIR)/$@ -o $(BUILD_DIR)/$@.o
 
 
+# build armstub
+armstub: armstubWrite armstub/build/armstub.S.o armstubEnd
+	@$(ARMGNU)-ld --section-start=.text=0 -o armstub/build/armstub.elf armstub/build/armstub.S.o
+	@$(ARMGNU)-objcopy armstub/build/armstub.elf -O binary $(BUILD_DIR)/armstub-new.bin
+	@cp $(BUILD_DIR)/armstub-new.bin $(BOOTMNT)/
+	@sync
+
+armstubWrite:
+	@echo
+	@echo " --- armstub ---"
+
+armstubEnd:
+	@echo "_____________________"
+	@echo
+
+
+armstub/build/armstub.S.o: armstub/src/armstub.S
+	mkdir -p $(@D)
+	$(ARMGNU)-gcc $(FLAGS) -MMD -c $< -o $@
+
+
 # link objs
 linkimg: linkimgWrite linkimgWrk linkimgEnd
 linkimgWrite:
@@ -215,7 +236,7 @@ installEnd:
 
 
 # clean all and make OS
-build: minimal clean always buildboot buildkernel buildos linkimg
+build: minimal clean always buildboot buildkernel buildos linkimg armstub
 buildall: build install
 
 

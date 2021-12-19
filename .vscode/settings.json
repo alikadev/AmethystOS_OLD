@@ -1,6 +1,13 @@
 {
     "files.associations": {
         "uart.h": "c",
-        "gpio.h": "c"
+        "gpio.h": "c",
+        "printf.h": "c",
+        "timer.h": "c",
+        "string": "c",
+        "string_view": "c",
+        "array": "c",
+        "initializer_list": "c",
+        "utility": "c"
     }
 }

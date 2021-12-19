@@ -1,40 +1,62 @@
 #include "common.h"
 #include "string.h"
-#include "io.h"
+#include "printf.h"
+#include "uart.h"
+#include "irq.h"
+#include "timer.h"
+#include "mailbox.h"
+
+#define BAUDRATE 115200
+
+void putc(void *p, char c){
+    if(c=='\n')
+        uart_putc('\r');
+    uart_putc(c);
+}
+
+u32 get_el();
 
 void kernel_main() {
-    uart_puts("Rasperry PI AmethystOS Initializing...\n");
+    // init uart
+    uart_init(BAUDRATE);
+    init_printf(0, putc);
 
-#if RPI_VERSION == 3
-    uart_puts("\tRPI VERSION: Raspberry PI 3\n");
-#endif
+    printf("Rasperry PI AmethystOS Initializing...\n");
 
-#if RPI_VERSION == 4
-    uart_puts("\tRPI VERSION: Raspberry PI 4\n");
-#endif
+    // init
+    irq_intiVectors();
+    enableInterruptController();
+    irq_enable();
+    timerInit();
+
+    printf("\tRPI VERSION: Raspberry PI %d\n", RPI_VERSION);
+
+    printf("\nException Level: %d\n", get_el());
+
+    printf("MAILBOX:\n");
+    printf("CORE CLOCK: %d\n", mailbox_clockRate(CORE));
+    printf("EMMC CLOCK: %d\n", mailbox_clockRate(EMMC));
+    printf("UART CLOCK: %d\n", mailbox_clockRate(UART));
+    printf("ARM  CLOCK: %d\n", mailbox_clockRate(ARM));
+
+    printf("I2C POWER STATE:\n");
+
+    for(u8 i=0; i<3; i++){
+        bool on = mailbox_powerCheck(i);
+
+        printf("POWER DOMAIN STATUS FOR %d = %d\n", i, on);
+    }
+
+    u32 maxTemp = 0;
+    mailbox_genericCommand(RPI_FIRMWARE_GET_MAX_TEMPERATURE, 0, &maxTemp);
+
+
     while(1) {
-        u16 c = listenKeyboard();
-        if(c<NotDef){
-            uart_putc(c);
-            continue;
-        }
-        switch (c)
-        {   
-        case Left:
-            uart_puts("[L]");
-            continue;
-        case Right:
-            uart_puts("[R]");
-            continue;
-        case Up:
-            uart_puts("[U]");
-            continue;
-        case Down:
-            uart_puts("[D]");
-            continue;
-        
-        default:
-            uart_puts("[?]");
-        }
+        u32 curTemp = 0;
+        mailbox_genericCommand(RPI_FIRMWARE_GET_TEMPERATURE, 0, &curTemp);
+
+        printf("Current temperature: %dC, MAX: %dC\n", curTemp/1000, maxTemp/1000);
+
+        timerSleep(1000);
     }
 }

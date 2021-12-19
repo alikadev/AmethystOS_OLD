@@ -2,9 +2,9 @@
 #include "math.h"
 
 
-//
-// SOURCES : https://www.techiedelight.com/implement-itoa-function-in-c/
-//
+//  itoa reverse swap
+//      SOURCES : https://www.techiedelight.com/implement-itoa-function-in-c/
+//  
 //
 
 

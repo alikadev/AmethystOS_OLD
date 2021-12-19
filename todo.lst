@@ -1,5 +1,5 @@
 [ Bootloader ]
-  [ ] init GPIO~UART
+  [X] init GPIO~UART
   [ ] init HDMI
   [ ] init Keyboard
   [ ] init Disk Driver
@@ -24,13 +24,13 @@
 -~-~-~-~-~-~-~-~-~-~
 
 [ BAIO ]
-  run < file{path} >                  ; run file
-  wrt < file{path} > ["< content >"]  ; erase content & write in file
-  rd  < file{path} >                  ; get file content
-  cd  < dir{path} >                   ; change > here 
-  del < path >                        ; delete file | dir
-  lst [< dir{path} >]                 ; list file & dirs
-  here                                ; get > here
+  run   < file{path} >                  ; run file
+  wrt   < file{path} > ["< content >"]  ; erase content & write in file
+  read  < file{path} >                  ; get file content
+  chdir < dir{path} >                   ; change > here 
+  del   < path >                        ; delete file | dir
+  lst   [< dir{path} >]                 ; list file & dirs
+  here                                  ; get > here
 
 -~-~-~-~-~-~-~-~-~-~
 
