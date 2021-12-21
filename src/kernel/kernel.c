@@ -1,6 +1,6 @@
 #include "common.h"
 #include "string.h"
-#include "printf.h"
+#include "../inc/printf.h"
 #include "uart.h"
 #include "irq.h"
 #include "timer.h"
@@ -11,6 +11,10 @@
 void putc(void *p, char c){
     if(c=='\n')
         uart_putc('\r');
+    if(c=='\t'){
+        uart_puts("    ");
+        return;
+    }
     uart_putc(c);
 }
 
@@ -20,8 +24,8 @@ void kernel_main() {
     // init uart
     uart_init(BAUDRATE);
     init_printf(0, putc);
-
-    printf("Rasperry PI AmethystOS Initializing...\n");
+    uart_putc('\n');
+    printf("\nRasperry PI AmethystOS Initializing...\n");
 
     // init
     irq_intiVectors();
@@ -33,13 +37,13 @@ void kernel_main() {
 
     printf("\nException Level: %d\n", get_el());
 
-    printf("MAILBOX:\n");
+    printf("\nMAILBOX:\n");
     printf("CORE CLOCK: %d\n", mailbox_clockRate(CORE));
     printf("EMMC CLOCK: %d\n", mailbox_clockRate(EMMC));
     printf("UART CLOCK: %d\n", mailbox_clockRate(UART));
     printf("ARM  CLOCK: %d\n", mailbox_clockRate(ARM));
 
-    printf("I2C POWER STATE:\n");
+    printf("\nI2C POWER STATE:\n");
 
     for(u8 i=0; i<3; i++){
         bool on = mailbox_powerCheck(i);
@@ -52,11 +56,11 @@ void kernel_main() {
 
 
     while(1) {
-        u32 curTemp = 0;
-        mailbox_genericCommand(RPI_FIRMWARE_GET_TEMPERATURE, 0, &curTemp);
-
-        printf("Current temperature: %dC, MAX: %dC\n", curTemp/1000, maxTemp/1000);
-
-        timerSleep(1000);
+        u32 curtemp = 0;
+        mailbox_genericCommand(RPI_FIRMWARE_GET_TEMPERATURE, 0, &curtemp);
+        printf("curTemp: %d, max: %d\n", 
+            curtemp, 
+            maxTemp);
+        timerSleep(5000);
     }
 }

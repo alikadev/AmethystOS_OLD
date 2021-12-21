@@ -1,4 +1,14 @@
-#pragma once
+/*
+File: gpio.h
+Copyright (C) 2020 Alikadev
+This file contains the structure of the gpio regs GpioRegs, an
+enum of gpio functions _GpioFunc and two function:
+void gpio_pin_set_func(u8 pinNumber, GpioFunc func);
+void gpio_pin_enable(u8 pinNumber);
+*/
+
+#ifndef __PERIPHERICALS_GPIO_H__
+#define __PERIPHERICALS_GPIO_H__
 
 #include "common.h"
 #include "peripherals/base.h"
@@ -41,3 +51,5 @@ typedef enum _GpioFunc {
 void gpio_pin_set_func(u8 pinNumber, GpioFunc func);
 
 void gpio_pin_enable(u8 pinNumber);
+
+#endif

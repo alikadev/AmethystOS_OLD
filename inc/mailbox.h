@@ -1,4 +1,16 @@
-#pragma once
+/*
+File: mailbox.h
+Copyright (C) 2020 Alikadev
+This file contains some mailbox struct, firmware enum, 
+power domain define and functions:
+u32 mailbox_clockRate(ClockType ct);
+bool mailbox_genericCommand(u32 tagId, u32 id, u32 *value);
+bool mailbox_powerCheck(u32 type);
+bool mailbox_process(mailbox_Tag *tag, u32 tagSize);
+*/
+
+#ifndef __MAILBOX_H__
+#define __MAILBOX_H__
 
 #include "common.h"
 
@@ -171,3 +183,6 @@ enum rpi_firmware_property_tag {
 u32 mailbox_clockRate(ClockType ct);
 bool mailbox_genericCommand(u32 tagId, u32 id, u32 *value);
 bool mailbox_powerCheck(u32 type);
+bool mailbox_process(mailbox_Tag *tag, u32 tagSize);
+
+#endif

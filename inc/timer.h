@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __TIMER_H__
+#define __TIMER_H__
 
 #include "peripherals/base.h"
 #include "common.h"
@@ -21,3 +22,5 @@ u0 handleTimer_1();
 u0 handleTimer_3();
 u64 timerGetTicks();
 u0 timerSleep(u32 ms);
+
+#endif

@@ -173,7 +173,7 @@ $(OS_DIR)/%.c:
 armstub: armstubWrite armstub/build/armstub.S.o armstubEnd
 	@$(ARMGNU)-ld --section-start=.text=0 -o armstub/build/armstub.elf armstub/build/armstub.S.o
 	@$(ARMGNU)-objcopy armstub/build/armstub.elf -O binary $(BUILD_DIR)/armstub-new.bin
-	@cp $(BUILD_DIR)/armstub-new.bin $(BOOTMNT)/
+	@cp -f $(BUILD_DIR)/armstub-new.bin $(BOOTMNT)/
 	@sync
 
 armstubWrite:

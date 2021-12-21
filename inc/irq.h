@@ -1,9 +1,23 @@
-#pragma once
+/*
+File: irq.h
+Copyright (C) 2020 Alikadev
+This file contains some irq/interrupt structure and functions. 
+vm_irqs is an enum to define each system timer and irq auxillary 
+bit. the struct arm_irq_regs contains the structure for the arm 
+irq regs. The adresse to the irq regs is REGS_IRQ. This file
+contains some functions too:
+u0 irq_intiVectors();
+u0 irq_enable();
+u0 irq_disable();
+u0 enableInterruptController();
+*/
+
+#ifndef __IRQ_H__
+#define __IRQ_H__
 
 #include "peripherals/base.h"
 #include "common.h"
 
-//6.2.4
 enum vc_irqs {
     SYS_TIMER_IRQ_0 = 1,
     SYS_TIMER_IRQ_1 = 2,
@@ -49,3 +63,5 @@ u0 irq_enable();
 u0 irq_disable();
 
 u0 enableInterruptController();
+
+#endif

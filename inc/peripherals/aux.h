@@ -1,4 +1,13 @@
-#pragma once
+/*
+File: aux.h
+Copyright (C) 2020 Alikadev
+This file contains the structure of the auxiliary registers. 
+Moreover, there is a constant REGS_AUX that contains this 
+structure at the right memory address.
+*/
+
+#ifndef __PERIPHERICALS_AUX_H__
+#define __PERIPHERICALS_AUX_H__
 
 #include "common.h"
 
@@ -22,3 +31,5 @@ struct AuxRegs {
 };
 
 #define REGS_AUX ((struct AuxRegs *)(PBASE + 0x215000))
+
+#endif

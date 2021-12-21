@@ -1,6 +1,13 @@
-#pragma once
+/*
+File: entry.h
+Copyright (C) 2020 Alikadev
+This file contains errors for the entry mode (el1,el0,..). It
+define frame size too.
+*/
 
-//D1.10.2
+#ifndef __ENTRY_H__
+#define __ENTRY_H__
+
 #define SYNC_INVALID_EL1t		0 
 #define IRQ_INVALID_EL1t		1 
 #define FIQ_INVALID_EL1t		2 
@@ -23,3 +30,5 @@
 
 //stack frame size
 #define S_FRAME_SIZE			256
+
+#endif

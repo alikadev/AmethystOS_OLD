@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __MEMORY_MANAGMENT_H__
+#define __MEMORY_MANAGMENT_H__
 
 #define PAGE_SHIFT 12
 #define TABLE_SHIFT 9
@@ -11,5 +12,7 @@
 #ifndef __ASSEMBLER__
 
 void memzero(unsigned long src, unsigned int n);
+
+#endif
 
 #endif

@@ -1,4 +1,11 @@
-#pragma once
+/*
+File: common.h
+Copyright (C) 2020 Alikadev
+This file contains common define for the system (u0,u8,reg32,...)
+*/
+
+#ifndef __COMMON_H__
+#define __COMMON_H__
 
 #include <stdint.h>
 
@@ -14,10 +21,12 @@
 
 typedef volatile u32 reg32;
 
-typedef char  bool;
+typedef char bool;
 #define true  1
 #define false 0
 
 #ifndef RPI_VERSION
 #define RPI_VERSION -1
+#endif
+
 #endif

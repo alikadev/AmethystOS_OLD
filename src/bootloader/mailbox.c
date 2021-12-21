@@ -1,5 +1,4 @@
 #include "mailbox.h"
-#include "common.h"
 #include "peripherals/base.h"
 #include "printf.h"
 #include "mem.h"
@@ -14,7 +13,7 @@ typedef struct
 } mailbox_regs;
 
 mailbox_regs *MBX() {
-    return (mailbox_regs *)(PBASE + 0xB800);
+    return (mailbox_regs *)(PBASE + 0xB880);
 }
 
 typedef struct {
@@ -42,7 +41,7 @@ static u32 propretyData[8192] __attribute__((aligned(16)));
 static u0 mailbox_write(u8 channel, u32 data){
     while(MBX()->status & MAIL_FULL) ;
 
-    MBX()->write = (data & 0xFFFFFFF0 | (channel & 0xF));
+    MBX()->write = ((data & 0xFFFFFFF0) | (channel & 0xF));
 }
 
 static u32 mailbox_read(u8 channel){
@@ -69,9 +68,9 @@ bool mailbox_process(mailbox_Tag *tag, u32 tagSize){
     buff->code = RPI_FIRMWARE_STATUS_REQUEST;
     propretyData[(tagSize + 12) / 4 - 1] = RPI_FIRMWARE_PROPERTY_END;
     
-    mailbox_write(MAIL_TAGS, (u32)(void*)propretyData);
+    mailbox_write(MAIL_TAGS, (u32)(void*) propretyData);
 
-    u32 result = mailbox_read(MAIL_TAGS);
+    mailbox_read(MAIL_TAGS);
 
     memcpy(tag, propretyData + 2, tagSize);
 

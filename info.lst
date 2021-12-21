@@ -1,0 +1,75 @@
+[[ --- TODO LIST --- ]]
+[ Bootloader / Kernel ]
+  [X] init GPIO~UART
+  [X] init Interrupt
+  [X] init MailBox
+  [ ] init HDMI
+  [ ] init Keyboard
+  [ ] init Disk Driver
+
+[ Operating System App ]
+  [ ] make baio
+
+-~-~-~-~-~-~-~-~-~-~
+
+[ order ]
+  1   init GPIO~UART
+  2   init Interrupt
+  3   init Mailbox
+  5   init HDMI
+  10  init Keyboard
+  15  init Disk Driver
+  ~X  make baio
+
+
+=========================
+
+[[ APP ]]
+[ BAIO ]
+  run   < file{path} >                  ; run file
+  wrt   < file{path} > ["< content >"]  ; erase content & write in file
+  read  < file{path} >                  ; get file content
+  cd    < dir{path} >                   ; change > here 
+  del   < path >                        ; delete file | dir
+  lst   [< dir{path} >]                 ; list file & dirs
+  here                                  ; get > here
+  get   < env var >                     ; get value of var
+
+
+=========================
+
+[ Environnement Variable ]
+    ++ exemple
+  USER ; admin
+  KEYB ; CH-fr
+  LANG ; EN
+  OSNM ; AmethystOS
+  OSVR ; 0.1
+
+
+=========================
+
+[ FileSystem ]
+F   = FILE
+  d = data
+  e = exec
+  s = shl
+D   = Dir
+  r = root
+  s = sys
+  u = user
+
+Dr  ::
+Ds    sys
+Fd      env.var       > env var
+Ds      kb
+Fd        *.kb        > kc:ch;...
+Ds      lang
+Fd        *.lang      > language id 
+Ds      user
+Fd        user.lst    > user list
+Fd        *.user      > user data {pass;userHome}
+Fs        nolog.shl   > no logon script
+Ds    user
+Ds      *             > user home
+Fs        log.shl     > user logon script
