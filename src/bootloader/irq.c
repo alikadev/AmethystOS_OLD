@@ -55,9 +55,7 @@ void handleIrq() {
         if(irq & AUX_IRQ) {
             irq &= ~AUX_IRQ;
             while((REGS_AUX->mu_iir & 4) == 4){
-                printf("UART Recv: ");
-                uart_putc(uart_getc());
-                printf("\n");
+                printf("%c",uart_getc());
             }
         }
 

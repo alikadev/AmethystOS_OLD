@@ -11,7 +11,7 @@
 void putc(void *p, char c){
     if(c=='\n')
         uart_putc('\r');
-    if(c=='\t'){
+    else if(c=='\t'){
         uart_puts("    ");
         return;
     }
@@ -24,8 +24,8 @@ void kernel_main() {
     // init uart
     uart_init(BAUDRATE);
     init_printf(0, putc);
-    uart_putc('\n');
-    printf("\nRasperry PI AmethystOS Initializing...\n");
+    printf("\r\r\r\r\r\r\r\r\r\r\r\r\r\n");
+    printf("Rasperry PI AmethystOS Initializing...\n");
 
     // init
     irq_intiVectors();

@@ -1,6 +1,6 @@
 # Author  -> alikadev
-# Version -> 1.2
-# Date    -> 09.01.07
+# Version -> 1.3
+# Date    -> 21.12.23
 # Desc    -> Build & run (qemu) AmthystOS
 
 
@@ -173,7 +173,6 @@ $(OS_DIR)/%.c:
 armstub: armstubWrite armstub/build/armstub.S.o armstubEnd
 	@$(ARMGNU)-ld --section-start=.text=0 -o armstub/build/armstub.elf armstub/build/armstub.S.o
 	@$(ARMGNU)-objcopy armstub/build/armstub.elf -O binary $(BUILD_DIR)/armstub-new.bin
-	@cp -f $(BUILD_DIR)/armstub-new.bin $(BOOTMNT)/
 	@sync
 
 armstubWrite:
@@ -226,6 +225,7 @@ else
 	@cp $(BIN_DIR)/$(OUT_IMAGE) $(BOOTMNT)/kernel8.img
 	@echo "in to      $(BOOTMNT)"/kernel8.img
 endif
+	@cp -f $(BUILD_DIR)/armstub-new.bin $(BOOTMNT)/
 	@cp config.txt $(BOOTMNT)/
 	@sync
 	
@@ -236,7 +236,7 @@ installEnd:
 
 
 # clean all and make OS
-build: minimal clean always buildboot buildkernel buildos linkimg armstub
+build: minimal clean always buildboot buildkernel buildos armstub linkimg
 buildall: build install
 
 
@@ -257,8 +257,9 @@ clean:
 	@echo
 	@echo " --- clean ---"
 	@echo "Cleaning build dir..."
-
 	@rm ./$(BUILD_DIR)/* -rf
+	@echo "Cleaning armstub build dir"
+	@rm ./armstub/build/* -rf
 	@echo "Cleaning bin dir"
 	@rm ./$(BIN_DIR)/* -rf
 

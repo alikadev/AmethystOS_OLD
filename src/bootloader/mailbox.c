@@ -68,7 +68,7 @@ bool mailbox_process(mailbox_Tag *tag, u32 tagSize){
     buff->code = RPI_FIRMWARE_STATUS_REQUEST;
     propretyData[(tagSize + 12) / 4 - 1] = RPI_FIRMWARE_PROPERTY_END;
     
-    mailbox_write(MAIL_TAGS, (u32)(void*) propretyData);
+    mailbox_write(MAIL_TAGS, *(u32*) propretyData);
 
     mailbox_read(MAIL_TAGS);
 

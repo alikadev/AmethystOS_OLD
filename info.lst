@@ -70,6 +70,8 @@ Ds      user
 Fd        user.lst    > user list
 Fd        *.user      > user data {pass;userHome}
 Fs        nolog.shl   > no logon script
+Ds      log
+Fsu       *.log       > log files
 Ds    user
 Ds      *             > user home
 Fs        log.shl     > user logon script
