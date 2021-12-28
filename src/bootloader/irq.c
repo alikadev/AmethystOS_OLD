@@ -3,6 +3,7 @@
 #include "entry.h"
 #include "peripherals/aux.h"
 #include "uart.h"
+#include "video.h"
 #include "timer.h"
 
 const char entryErrorMessage[16][32] = {
@@ -55,7 +56,8 @@ void handleIrq() {
         if(irq & AUX_IRQ) {
             irq &= ~AUX_IRQ;
             while((REGS_AUX->mu_iir & 4) == 4){
-                printf("%c",uart_getc());
+                uart_cmd(uart_getc());
+                video_dma();
             }
         }
 

@@ -14,6 +14,7 @@ struct timerRegs {
     reg32 compare[4];
 };
 
+
 #define REGS_TIMER ((struct timerRegs *)(PBASE + 0x3000))
 
 

@@ -29,4 +29,6 @@ typedef char bool;
 #define RPI_VERSION -1
 #endif
 
+#define PACKED __attribute((__packed__))
+
 #endif

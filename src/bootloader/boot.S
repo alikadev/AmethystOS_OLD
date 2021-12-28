@@ -1,5 +1,6 @@
 #include "mm.h"
 #include "sysregs.h"
+//#include "mmu.h"
 
 .section ".text.boot"
 
@@ -22,6 +23,17 @@ master:
 
     ldr x0, =SPSR_VALUE
     msr spsr_el3, x0
+
+/*#if INIT_MMU == 1
+    ldr x0, =CPACR_EL1_VAL
+    msr CPACR_EL1, x0
+
+    ldr x0, =TCR_EL1_VAL
+    msr TCR_EL1, x0
+
+    ldr x0, =MAIR_VALUE
+    msr MAIR_EL1, x0
+#endif*/
 
     adr x0, el1_entry
     msr elr_el3, x0

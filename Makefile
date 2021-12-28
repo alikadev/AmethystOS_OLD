@@ -1,5 +1,5 @@
 # Author  -> alikadev
-# Version -> 1.3
+# Version -> 1.4
 # Date    -> 21.12.23
 # Desc    -> Build & run (qemu) AmthystOS
 
@@ -10,9 +10,11 @@ RPI_VERSION ?= 3
 
 BOOTMNT     ?= get-BOOTMNT
 
+INIT_MMU 	?= 1
+
 # build
 ARMGNU      = aarch64-linux-gnu
-FLAGS       = -DRPI_VERSION=$(RPI_VERSION) -Wall -nostdlib -nostartfiles \
+FLAGS       = -DINIT_MMU=$(INIT_MMU) -DRPI_VERSION=$(RPI_VERSION) -Wall -nostdlib -nostartfiles \
 		-ffreestanding -Iinc -mgeneral-regs-only
 
 
