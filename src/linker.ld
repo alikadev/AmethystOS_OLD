@@ -8,4 +8,7 @@ SECTIONS
     bss_begin = .;
     .bss : { *(.bss*) }
     bss_end = .;
+    . = ALIGN(0x1000);
+    id_pgd = .;
+    .data.id_pgd : { . += (6 * (1 << 12)); }
 }

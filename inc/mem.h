@@ -11,4 +11,8 @@ void *memcpy(u0 *dest, const u0 *src, u32 n);
 
 #define BUS_ADDRESS(addr)	(((addr) & ~0xC0000000) | GPU_MEM_BASE)
 
+u0 *allocateMemory(int bytes);
+u0 freeMemory(void *base);
+u0 *getFreePages(int numPages);
+
 #endif

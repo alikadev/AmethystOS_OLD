@@ -1,6 +1,8 @@
 #ifndef __SYS_REGS_H__
 #define __SYS_REGS_H__
 
+#define BIT(x) (1 << (x))
+
 #define SCTLR_RESERVED                  (3 << 28) | (3 << 22) | (1 << 20) | (1 << 11)
 #define SCTLR_EE_LITTLE_ENDIAN          (0 << 25)
 #define SCTLR_EOE_LITTLE_ENDIAN         (0 << 24)
@@ -10,6 +12,12 @@
 #define SCTLR_MMU_ENABLED               (1 << 0)
 
 #define SCTLR_VALUE_MMU_DISABLED (SCTLR_RESERVED | SCTLR_EE_LITTLE_ENDIAN | SCTLR_I_CACHE_DISABLED | SCTLR_D_CACHE_DISABLED | SCTLR_MMU_DISABLED)
+
+
+/* architectural feature access control register */
+#define CPACR_EL1_FPEN    BIT(21) | BIT(20) // don't trap SIMD/FP registers
+#define CPACR_EL1_ZEN     BIT(17) | BIT(16)  // don't trap SVE instructions
+#define CPACR_EL1_VAL     (CPACR_EL1_FPEN | CPACR_EL1_ZEN)
 
 #define HCR_RW                          (1 << 31)
 #define HCR_VALUE                       HCR_RW

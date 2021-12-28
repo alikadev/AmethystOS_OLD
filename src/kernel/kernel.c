@@ -6,6 +6,7 @@
 #include "timer.h"
 #include "mailbox.h"
 #include "video.h"
+#include "mem.h"
 
 #define BAUDRATE 115200
 
@@ -92,7 +93,7 @@ struct AlignCheck2
     u32 d;
 } PACKED;
 
-u8 buffer[] = {0x10, 0x20, 0x30, 0x40, 0x40, 0x50, 0x60, 0x70};
+u8 buffer[] = {0x10, 0x20, 0x30, 0x40, 0x50, 0x60, 0x70};
 
 void kernel_main()
 {
@@ -131,7 +132,7 @@ void kernel_main()
     printf("\nMMU - DMA initialized!\n");
 #endif
 
-    /* printf("Align check UNPACKED\n");
+    printf("Align check UNPACKED\n");
     struct AlignCheck1 ac1;
     memcpy(&ac1, buffer, 7);
     printf("A: %X\nB: %X\nC: %X\nD: %X\n", ac1.a, ac1.b, ac1.c, ac1.d);
@@ -140,7 +141,16 @@ void kernel_main()
     struct AlignCheck2 ac2;
     memcpy(&ac2, buffer, 7);
     printf("A: %X\nB: %X\nC: %X\nD: %X\n", ac2.a, ac2.b, ac2.c, ac2.d);
-    timerSleep(2000);*/
+    timerSleep(2000);
+
+    u0 *p1 = getFreePages(10);
+    u0 *p2 = getFreePages(4);
+    u0 *p3 = allocateMemory(sizeof(struct AlignCheck1));
+
+    freeMemory(p1);
+    freeMemory(p2);
+    freeMemory(p3);
+
 
     // init video
     printf("\nVideo - DMA initializing...\n");
