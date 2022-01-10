@@ -5,6 +5,7 @@
 #include "uart.h"
 #include "video.h"
 #include "timer.h"
+#include "os/baio.h"
 
 const char entryErrorMessage[16][32] = {
     "SYNC_INVALID_EL1t",
@@ -54,11 +55,10 @@ void handleIrq() {
 
     while(irq) {
         if(irq & AUX_IRQ) {
-            irq &= ~AUX_IRQ;
-            while((REGS_AUX->mu_iir & 4) == 4){
-                uart_cmd(uart_getc());
-                video_dma();
-            }
+            //irq &= ~AUX_IRQ;
+            //while((REGS_AUX->mu_iir & 4) == 4){
+            //    baio_putc(uart_getc());
+            //}
         }
 
         if(irq & SYS_TIMER_IRQ_1){

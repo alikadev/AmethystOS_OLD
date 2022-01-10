@@ -2,7 +2,6 @@
 #include "peripherals/base.h"
 #include "mm.h"
 #include "mmu.h"
-#include "printf.h"
 
 static u16 memMap[PAGING_PAGES] = {0};
 
@@ -17,12 +16,12 @@ u0 *allocateMemory(int bytes){
 u0 freeMemory(void *base){
     u64 pageNum = (((u64)base - LOW_MEMORY) / PAGE_SIZE);
     u32 pages = memMap[pageNum];
-    printf("free mem at @ 0x%X page num: %d pages: %d\n", base, pageNum, pages);
 
     for(u32 i=0; i<pages; i++){
         memMap[pageNum+i]=0;
     }
 }
+PACKED
 
 u0 *getFreePages(int numPages){
     u32 startIndex = 0;
@@ -40,7 +39,6 @@ u0 *getFreePages(int numPages){
                     memMap[c + startIndex] = 1;
                 }
                 u0 *p = (u0 *)(LOW_MEMORY + (startIndex * PAGE_SIZE));
-                printf("getFreePages return %d pages starting at %d at address 0x%X\n", count, startIndex, p);
                 return p;
             }
         } else {

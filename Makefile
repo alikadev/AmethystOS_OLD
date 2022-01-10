@@ -8,13 +8,17 @@
 # var
 RPI_VERSION ?= 3
 
+VER_MAJOR   ?= 0
+VER_MINOR 	?= 0
+VER_PATCH   ?= 0
+
 BOOTMNT     ?= get-BOOTMNT
 
 INIT_MMU 	?= 1
 
 # build
 ARMGNU      = aarch64-linux-gnu
-FLAGS       = -DINIT_MMU=$(INIT_MMU) -DRPI_VERSION=$(RPI_VERSION) -Wall -nostdlib -nostartfiles \
+FLAGS       = -DVER_MAJOR=$(VER_MAJOR) -DVER_MINOR=$(VER_MINOR) -DVER_PATCH=$(VER_PATCH) -DINIT_MMU=$(INIT_MMU) -DRPI_VERSION=$(RPI_VERSION) -Wall -nostdlib -nostartfiles \
 		-ffreestanding -Iinc -mgeneral-regs-only
 
 
@@ -43,8 +47,8 @@ OS_ASM_FILES       = $(addprefix $(OS_DIR)/,$(notdir $(wildcard $(SRC_DIR)/$(OS_
 OS_ASM_FILES      += $(addprefix $(OS_DIR)/,$(notdir $(wildcard $(SRC_DIR)/$(OS_DIR)/*.S)))
 
 SRC_BOOT_ASM       = $(addprefix $(SRC_DIR)/,$(BOOT_ASM_FILES))
-SRC_KERNEL_ASM   = $(addprefix $(SRC_DIR)/,$(KERNEL_ASM_FILES))
-SRC_OS_ARM       = $(addprefix $(SRC_DIR)/,$(OS_ASM_FILES))
+SRC_KERNEL_ASM     = $(addprefix $(SRC_DIR)/,$(KERNEL_ASM_FILES))
+SRC_OS_ARM         = $(addprefix $(SRC_DIR)/,$(OS_ASM_FILES))
 
 OBJ_BOOT           = $(BOOT_ASM_FILES:$(SRC_DIR)/$(BOOT_DIR)/%.S=$(BUILD_DIR)/$(BOOT_DIR)/%_s.o)
 OBJ_KERNEL         = $(KERNEL_ASM_FILES:$(SRC_DIR)/$(KERNEL_DIR)/%.S=$(BUILD_DIR)/$(KERNEL_DIR)/%_s.o)

@@ -43,7 +43,7 @@ typedef struct
 static mailbox_frameBufferRequest fbReq;
 
 static dma_Channel *dma;
-static u8 *videoBuffer;
+static u8 *video_buffer;
 static u32 *bg32Buffer;
 static u32 *bg8Buffer;
 
@@ -59,10 +59,10 @@ static u32 *bg8Buffer;
 u0 video_init()
 {
     dma = dma_openChannel(CT_NORMAL);
-    videoBuffer = (u8 *)VB_MEM_LOCATION;
+    video_buffer = (u8 *)VB_MEM_LOCATION;
 
     printf("DMA Channel:  %d\n", dma->channel);
-    printf("VIDEO Buffer: 0x%X\n", videoBuffer);
+    printf("VIDEO Buffer: 0x%X\n", video_buffer);
 
     bg32Buffer = (u32 *)BG32_MEM_LOCATION;
     bg8Buffer = (u32 *)BG8_MEM_LOCATION;
@@ -82,7 +82,7 @@ static bool useDma = false;
 #define BUS_ADDR(x) (((u64)x | 0x40000000) & ~0xC0000000)
 
 #define FRAMEBUFFER ((volatile u8 *)BUS_ADDR(fbReq.buff.base))
-#define DMABUFFER ((volatile u8 *)videoBuffer)
+#define DMABUFFER ((volatile u8 *)video_buffer)
 #define DRAWBUFFER (useDma ? DMABUFFER : FRAMEBUFFER)
 
 u0 video_setDma(bool b)
@@ -90,10 +90,7 @@ u0 video_setDma(bool b)
     useDma = b;
 }
 
-u0 doDma(u0 *dest, u0 *src, u32 total)
-{
-    u32 msStart = timerGetTicks() / 1000;
-
+u0 doDma(u0 *dest, u0 *src, u32 total) {
     u32 start = 0;
     while (total > 0)
     {
@@ -108,8 +105,6 @@ u0 doDma(u0 *dest, u0 *src, u32 total)
         start += numBytes;
         total -= numBytes;
     }
-
-    u32 msEnd = timerGetTicks() / 1000;
 }
 
 u0 video_dma()
@@ -288,7 +283,7 @@ u0 video_clean(){
         }
         else
         {
-            doDma(BUS_ADDR(videoBuffer), bg32Buffer, fbReq.buff.screenSize);
+            doDma(BUS_ADDR(video_buffer), bg32Buffer, fbReq.buff.screenSize);
         }
     }
     else if (fbReq.depth.bpp == 8)
@@ -303,7 +298,7 @@ u0 video_clean(){
         }
         else
         {
-            doDma(BUS_ADDR(videoBuffer), bg8Buffer, fbReq.buff.screenSize);
+            doDma(BUS_ADDR(video_buffer), bg8Buffer, fbReq.buff.screenSize);
         }
     }
 }

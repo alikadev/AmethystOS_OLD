@@ -1,6 +1,7 @@
 #include "string.h"
 #include "math.h"
 #include "common.h"
+#include "printf.h"
 
 
 //  itoa reverse swap
@@ -74,28 +75,39 @@ u8 strlen(char* str){
     return (s - str);
 }
 
-char* strcpy(char* dest, char* in){
-    u8 ilen=strlen(in);
-    for(int i=0; i<ilen ;i++){
-        dest[i]=in[i];
-    }
-    dest[ilen+1]=0;
-    return dest;
+char* strcpy(char* dest, char* src){
+   char *saved = dest;
+   while ((*dest++ = *src++) != '\0');
+
+   return saved; //returning starting address of s1
 }
 
-char* strcat(char* dest, char* in){
-    u8 dlen=strlen(dest);
-    u8 slen=strlen(in)+dlen;
-    for(int i=dlen; i<slen ;i++){
-        dest[i]=in[i];
-    }
-    dest[slen+1]=0;
-    return dest;
+char* strcat(char* dest, char* src){
+    char *saved = dest;
+
+    while (*dest)
+      dest++;
+    while (*dest++ = *src++);
+    return saved;
 }
 
 char* strput(char* dest, char  in){
-    u8 dlen=strlen(dest);
-    dest[dlen+1]=in;
-    dest[dlen+2]=0;
+    u32 dlen = strlen(dest);
+    dest[dlen] = in;
+    dest[dlen+1] = 0;
     return dest;
+}
+
+char* strpop(char* in){
+    in[strlen(in)] = 0;
+    return in;
+}
+
+i32 strcmp(const char* s1, const char* s2){
+        const unsigned char *p1 = ( const unsigned char * )s1;
+    const unsigned char *p2 = ( const unsigned char * )s2;
+
+    while ( *p1 && *p1 == *p2 ) ++p1, ++p2;
+
+    return ( *p1 > *p2 ) - ( *p2  > *p1 );
 }

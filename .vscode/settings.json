@@ -8,6 +8,10 @@
         "string_view": "c",
         "array": "c",
         "initializer_list": "c",
-        "utility": "c"
+        "utility": "c",
+        "emmc.h": "c",
+        "baio.h": "c",
+        "video.h": "c",
+        "string.h": "c"
     }
 }
